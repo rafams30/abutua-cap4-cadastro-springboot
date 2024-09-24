@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abutua.productbackend.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +24,9 @@ import com.abutua.productbackend.models.Product;
 public class ProductController {
 
     private List<Product> products = new ArrayList<>();
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @PostMapping("products")
     public ResponseEntity<Product> save(@RequestBody Product product) {
@@ -50,7 +55,7 @@ public class ProductController {
 
     @GetMapping("products")
     public List<Product> getProducts() {
-        return products;
+        return productRepository.findAll();
     }
 
 }
